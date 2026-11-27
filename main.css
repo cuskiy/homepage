@@ -16,13 +16,13 @@
 
     --watermark: url("watermark.svg");
     --watermark-ink: light-dark(
-    color-mix(in srgb, var(--ink) 8%, transparent),
-    color-mix(in srgb, var(--ink) 12%, transparent)
+        color-mix(in srgb, var(--ink) 8%, transparent),
+        color-mix(in srgb, var(--ink) 12%, transparent)
     );
 
     --font:
-    system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
-    sans-serif;
+        system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+        "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
     --weight-medium: 500;
     --weight-strong: 600;
     --leading-tight: 1.2;
@@ -59,205 +59,208 @@
 
 @layer base {
     *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
 
-        html {
-            font-size: 100%;
-        }
+    html {
+        font-size: 100%;
+    }
 
-        body {
-            margin: 0;
-            min-block-size: 100svh;
-            background: var(--page);
-            color: var(--ink);
-            font-family: var(--font);
-            font-size: var(--text-base);
-            line-height: var(--leading-snug);
-        }
+    body {
+        margin: 0;
+        min-block-size: 100svh;
+        background: var(--page);
+        color: var(--ink);
+        font-family: var(--font);
+        font-size: var(--text-base);
+        line-height: var(--leading-snug);
+    }
 
-        body::before {
-            position: fixed;
-            z-index: 0;
-            inset: 0;
-            content: "";
-            background: var(--watermark-ink);
-            mask-image: var(--watermark);
-            mask-size: 1600px auto;
-            mask-position: center;
-            mask-repeat: repeat;
-            pointer-events: none;
-        }
+    body::before {
+        position: fixed;
+        z-index: 0;
+        inset: 0;
+        content: "";
+        background: var(--watermark-ink);
+        mask-image: var(--watermark);
+        mask-size: 1600px auto;
+        mask-position: center;
+        mask-repeat: repeat;
+        pointer-events: none;
+    }
 
-        a {
-            color: inherit;
-            text-decoration-color: currentcolor;
-            text-decoration-thickness: 1px;
-            text-underline-offset: var(--underline-offset);
-        }
+    a {
+        color: inherit;
+        text-decoration-color: currentcolor;
+        text-decoration-thickness: 1px;
+        text-underline-offset: var(--underline-offset);
+    }
 
-        a:hover {
-            text-decoration-color: currentcolor;
-        }
+    a:hover {
+        text-decoration-color: currentcolor;
+    }
 
-        :focus-visible {
-            outline: var(--outline-width) solid var(--focus);
-            outline-offset: var(--outline-offset);
-            border-radius: var(--radius-md);
-        }
+    :focus-visible {
+        outline: var(--outline-width) solid var(--focus);
+        outline-offset: var(--outline-offset);
+        border-radius: var(--radius-md);
+    }
 
-        .icon {
-            inline-size: var(--icon);
-            block-size: var(--icon);
-            flex: none;
-            fill: none;
-            stroke: currentcolor;
-            stroke-width: 1.75;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+    .icon {
+        inline-size: var(--icon);
+        block-size: var(--icon);
+        flex: none;
+        fill: none;
+        stroke: currentcolor;
+        stroke-width: 1.75;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
 
-        .skip {
-            position: absolute;
-            inset-block-start: var(--space-3);
-            inset-inline-start: var(--space-3);
-            z-index: 2;
-            padding: var(--space-2) var(--space-3);
-            border-radius: var(--radius-md);
-            background: var(--card);
-            color: var(--card-ink);
-            font-size: var(--text-sm);
-            transform: translateY(-200%);
-        }
+    .skip {
+        position: absolute;
+        inset-block-start: var(--space-3);
+        inset-inline-start: var(--space-3);
+        z-index: 2;
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius-md);
+        background: var(--card);
+        color: var(--card-ink);
+        font-size: var(--text-sm);
+        transform: translateY(-200%);
+    }
 
-        .skip:focus-visible {
-            transform: none;
-        }
+    .skip:focus-visible {
+        transform: none;
+    }
 
-        .note {
-            color: var(--card-muted);
-            font-size: var(--text-sm);
+    .note {
+        color: var(--card-muted);
+        font-size: var(--text-sm);
+    }
+}
+
+@layer layout {
+    .page {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        min-block-size: 100svh;
+        align-content: center;
+        justify-items: center;
+        gap: var(--space-6);
+        padding: clamp(1.5rem, 5vi, 4rem);
+    }
+}
+
+@layer components {
+    .card {
+        display: grid;
+        justify-items: center;
+        inline-size: min(100%, var(--card-measure));
+        padding: var(--card-padding);
+        border-radius: var(--radius-lg);
+        background: var(--card);
+        color: var(--card-ink);
+        text-align: center;
+        backdrop-filter: blur(4px);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inline-size: var(--logo);
+        block-size: var(--logo);
+        border-radius: var(--radius-pill);
+        background: var(--avatar);
+        color: var(--card-muted);
+        backdrop-filter: blur(10px);
+    }
+
+    .name {
+        margin: var(--space-5) 0 0;
+        font-size: var(--text-3xl);
+        font-weight: var(--weight-strong);
+        line-height: var(--leading-tight);
+        letter-spacing: -0.01em;
+        text-wrap: balance;
+    }
+
+    .handle {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+        margin: var(--space-2) 0 0;
+        color: var(--card-muted);
+        font-size: var(--text-sm);
+    }
+
+    .handle .icon {
+        inline-size: var(--icon-sm);
+        block-size: var(--icon-sm);
+    }
+
+    .links {
+        margin-block-start: var(--space-5);
+    }
+
+    .link-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-2);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .link {
+        display: grid;
+        place-items: center;
+        inline-size: var(--link);
+        block-size: var(--link);
+        border-radius: var(--radius-pill);
+        color: var(--card-muted);
+        text-decoration: none;
+    }
+
+    .link:hover {
+        background: var(--card-hover);
+        color: var(--card-ink);
+    }
+
+    .link:active {
+        background: var(--card-active);
+    }
+}
+
+@layer motion {
+    .logo {
+        cursor: pointer;
+    }
+
+    .logo:active {
+        animation: shake 240ms var(--ease);
+    }
+
+    @keyframes shake {
+        25% {
+            transform: rotate(-8deg);
+        }
+        50% {
+            transform: rotate(7deg);
+        }
+        75% {
+            transform: rotate(-3deg);
         }
     }
 
-    @layer layout {
-        .page {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            min-block-size: 100svh;
-            align-content: center;
-            justify-items: center;
-            gap: var(--space-6);
-            padding: clamp(1.5rem, 5vi, 4rem);
+    @media (prefers-reduced-motion: reduce) {
+        .logo:active {
+            animation: none;
         }
     }
-
-    @layer components {
-        .card {
-            display: grid;
-            justify-items: center;
-            inline-size: min(100%, var(--card-measure));
-            padding: var(--card-padding);
-            border-radius: var(--radius-lg);
-            background: var(--card);
-            color: var(--card-ink);
-            text-align: center;
-            backdrop-filter: blur(4px);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            inline-size: var(--logo);
-            block-size: var(--logo);
-            border-radius: var(--radius-pill);
-            background: var(--avatar);
-            color: var(--card-muted);
-            backdrop-filter: blur(10px);
-
-        }
-
-        .logo svg {
-            display: block;
-           inline-size: 5em;
-          block-size: 5em; 
-            animation: logo-spin 8s linear infinite;
-        }
-
-        .name {
-            margin: var(--space-5) 0 0;
-            font-size: var(--text-3xl);
-            font-weight: var(--weight-strong);
-            line-height: var(--leading-tight);
-            letter-spacing: -0.01em;
-            text-wrap: balance;
-        }
-
-        .handle {
-            display: flex;
-            align-items: center;
-            gap: var(--space-1);
-            margin: var(--space-2) 0 0;
-            color: var(--card-muted);
-            font-size: var(--text-sm);
-        }
-
-        .handle .icon {
-            inline-size: var(--icon-sm);
-            block-size: var(--icon-sm);
-        }
-
-        .links {
-            margin-block-start: var(--space-5);
-        }
-
-        .link-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: var(--space-2);
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .link {
-            display: grid;
-            place-items: center;
-            inline-size: var(--link);
-            block-size: var(--link);
-            border-radius: var(--radius-pill);
-            color: var(--card-muted);
-            text-decoration: none;
-        }
-
-        .link:hover {
-            background: var(--card-hover);
-            color: var(--card-ink);
-        }
-
-        .link:active {
-            background: var(--card-active);
-        }
-
-        .wedge {
-            fill: none;
-            stroke: var(--ink-muted);
-            stroke-width: 2.4;
-            stroke-linejoin: round;
-        }
-
-
-        @keyframes logo-spin {
-            to { transform: rotate(360deg); }
-        }
-    }
-
-
-
-    }
-
+}
